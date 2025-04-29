@@ -1,40 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta property="og:title" content="@flar |">
-    <meta property="og:description" content="Private biolink">
-    <meta property="og:image" content="https://flar.fwh.is/background.jpg">
-    <meta property="og:url" content="https://flar.fwh.is/">
-    <meta property="og:type" content="website">
-    <meta name="theme-color" content="#000000">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@flar</title>
+    <title>demi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="assets/knife.gif">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #1e1e1e;
+            padding: 0 380px;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .profile-container {
+            width: 340px;
+            background: rgba(32, 34, 37, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rich-presence {
+            width: 340px;
+            background: rgba(32, 34, 37, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .song-container {
+            width: 340px;
+            background: rgba(32, 34, 37, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rich-header, .song-header {
+            font-size: 14px;
+            color: #b9bbbe;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .rich-header i, .song-header i {
+            margin-right: 8px;
+            color: #7289da;
+        }
+
+        .rich-content, .song-content {
+            display: flex;
+            gap: 15px;
+        }
+
+        .rich-image, .song-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .rich-details, .song-details {
+            flex: 1;
+        }
+
+        .rich-title, .song-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .rich-line, .song-line {
+            font-size: 14px;
+            color: #b9bbbe;
+            margin: 3px 0;
+        }
+
+        .rich-time, .song-time {
+            font-size: 12px;
+            color: #b9bbbe;
+            margin-top: 8px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #2f3136;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .username {
+            font-size: 14px;
+            color: #b9bbbe;
+            margin: 5px 0 15px 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #b9bbbe;
+            margin: 15px 0 10px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .about-text {
+            font-size: 14px;
+            margin: 8px 0;
+            color: #dcddde;
+            line-height: 1.5;
+        }
+
+        .socials-section {
+            margin-top: 25px;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(79, 84, 92, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .social-item:hover .social-icon {
+            background: rgba(79, 84, 92, 0.8);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .social-name {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .social-item:hover .social-name {
+            opacity: 1;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #7289da;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #b9bbbe;
+            margin-top: 5px;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(114, 137, 218, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .song-image-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .song-image-container:hover .play-button {
+            opacity: 1;
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 12px;
+            margin-left: 2px;
+        }
+
+        .playing .play-button i {
+            content: "\f04c";
+            margin-left: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="container">
-        <div class="profile">
-            <img src="assets/profile.jpg" alt="Profile" class="profile-img">
-            <h1>flar</h1>
-            <p>drop ur life on a casket</p>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="assets/profile.jpg" alt="Profile" class="avatar">
+            <h1 class="name">demi</h1>
+            <p class="username">@unburdening</p>
         </div>
-        
-        <div class="links">
-            <a href="https://discord.gg/" class="link">Server</a>
-            <a href="https://youtube.com/" class="link">YouTube</a>
-            <a href="https://instagram.com/" class="link">Instagram</a>
-        </div>
-        
-        <div class="socials">
-            <a href="https://soundcloud.com/"><i class="fab fa-soundcloud"></i></a>
-            <a href="https://github.com/"><i class="fab fa-github"></i></a>
+
+        <div class="divider"></div>
+
+        <h2 class="section-title">ABOUT ME</h2>
+        <p class="about-text">Projects: �</p>
+        <p class="about-text">morality isnt tied to an afterlife</p>
+        <p class="about-text">nihilistic materialism</p>
+
+        <div class="divider"></div>
+
+        <div class="socials-section">
+            <h2 class="section-title">CONNECTIONS</h2>
+            <div class="social-grid">
+                <a href="https://github.com/" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" width="24" alt="GitHub">
+                    </div>
+                    <span class="social-name">GitHub</span>
+                </a>
+                <a href="https://twitter.com/" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" width="24" alt="Twitter">
+                    </div>
+                    <span class="social-name">Twitter</span>
+                </a>
+                <a href="https://twitch.tv/" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111668.png" width="24" alt="Twitch">
+                    </div>
+                    <span class="social-name">Twitch</span>
+                </a>
+                <a href="https://youtube.com/" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="24" alt="YouTube">
+                    </div>
+                    <span class="social-name">YouTube</span>
+                </a>
+                <a href="https://instagram.com/" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" alt="Instagram">
+                    </div>
+                    <span class="social-name">Instagram</span>
+                </a>
+                <a href="https://tiktok.com/@" class="social-item" target="_blank">
+                    <div class="social-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046125.png" width="24" alt="TikTok">
+                    </div>
+                    <span class="social-name">TikTok</span>
+                </a>
+            </div>
         </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <div class="right-container">
+        <div class="rich-presence">
+            <div class="rich-header">
+                <i class="fas fa-headphones"></i>
+                <span>Listening to Corpse</span>
+            </div>
+            <div class="rich-content">
+                <img src="assets/rich.jpg" alt="Corpse" class="rich-image">
+                <div class="rich-details">
+                    <div class="rich-title">demiourgia</div>
+                    <div class="rich-line">corpse sb</div>
+                    <div class="rich-line">vamplyfe</div>
+                    <div class="rich-time" id="timer">0:00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="song-container">
+            <div class="song-header">
+                <i class="fas fa-music"></i>
+                <span>Zombie Hedonism</span>
+            </div>
+            <div class="song-content">
+                <div class="song-image-container" id="song-cover">
+                    <img src="assets/aeter.jpg" alt="Song Cover" class="song-image">
+                    <div class="play-button" id="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="song-details">
+                    <div class="song-title">jester</div>
+                    <div class="song-line">aeter</div>
+                    <audio id="song-player" src="assets/jester.mp3"></audio>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="song-progress"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">2:04</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 0;
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            seconds++;
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            
+            timerElement.textContent = 
+                (hours > 0 ? hours + ':' : '') + 
+                (minutes < 10 && hours > 0 ? '0' + minutes : minutes) + ':' + 
+                (remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds);
+        }
+
+        setInterval(updateTimer, 1000);
+
+        const player = document.getElementById('song-player');
+        const progressBar = document.getElementById('song-progress');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const durationDisplay = document.getElementById('duration');
+        const playButton = document.getElementById('play-button');
+        const songCover = document.getElementById('song-cover');
+
+        player.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = formatTime(player.duration);
+        });
+
+        player.addEventListener('timeupdate', () => {
+            const currentTime = player.currentTime;
+            const duration = player.duration;
+            
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            
+            currentTimeDisplay.textContent = formatTime(currentTime);
+        });
+
+        playButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlay();
+        });
+
+        songCover.addEventListener('click', () => {
+            togglePlay();
+        });
+
+        function togglePlay() {
+            if (player.paused) {
+                player.play()
+                    .then(() => {
+                        songCover.classList.add('playing');
+                        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                    })
+                    .catch(error => {
+                        console.log("Playback failed:", error);
+                    });
+            } else {
+                player.pause();
+                songCover.classList.remove('playing');
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+
+        document.querySelector('.progress-container').addEventListener('click', (e) => {
+            const progressContainer = e.currentTarget;
+            const clickPosition = e.clientX - progressContainer.getBoundingClientRect().left;
+            const containerWidth = progressContainer.clientWidth;
+            const seekPercentage = clickPosition / containerWidth;
+            player.currentTime = seekPercentage * player.duration;
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        player.addEventListener('ended', () => {
+            songCover.classList.remove('playing');
+            playButton.innerHTML = '<i class="fas fa-play"></i>';
+            player.currentTime = 0;
+            progressBar.style.width = '0%';
+            currentTimeDisplay.textContent = '0:00';
+        });
+    </script>
 </body>
 </html>
